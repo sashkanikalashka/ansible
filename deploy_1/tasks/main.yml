@@ -1,0 +1,44 @@
+---
+# tasks file for deploy_1
+- name: "apt-get update"
+  apt:
+      update_cache: yes
+      cache_valid_time: 3600
+  
+- name: Install Nginx Web Server
+  apt: name=nginx state=latest
+
+- name: Install Nano txt
+  apt: name=nano state=latest
+
+- name: delete default nginx site
+  file:
+     path: /etc/nginx/sites-available/default
+     state: absent
+
+- name: delete default nginx site
+  file:
+     path: /etc/nginx/sites-enabled/default
+     state: absent
+
+- name: Copy index   
+  copy: src={{ item }} dest={{ destin_file }} mode=0555
+  loop: 
+     - "index.html"
+
+- name: Copy config
+  template: src=site.j2 dest={{ destin_file2 }}/site.conf mode=0555
+    
+
+- name: Create a symbolic link
+  file:
+       src: /etc/nginx/sites-available/site.conf
+       dest: /etc/nginx/sites-enabled/site.conf
+       owner: root
+       group: root
+       state: link
+
+# - name: Copy config
+#   copy: src={{ item }} dest={{ destin_file2 }} mode=0555
+#   loop: 
+#      - "site.conf"

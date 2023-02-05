@@ -1,0 +1,5 @@
+---
+# defaults file for deploy_1
+destin_file: /var/www/html
+destin_file2: /etc/nginx/sites-available/
+way: /var/www/ruszda

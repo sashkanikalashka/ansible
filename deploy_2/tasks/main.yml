@@ -1,0 +1,14 @@
+---
+# tasks file for deploy_2
+- name: "create www directory"
+  file:
+      path: /var/www/ruszda
+      state: directory
+      mode: '0775'
+      owner: "ubuntu"
+      group: "ubuntu"
+
+- name: Copy index
+  template: src=index.j2 dest={{ destin_file3 }}/index.html mode=0555      
+- name: restart nginx
+  service: name=nginx state=restarted
