@@ -1,0 +1,9 @@
+---
+- name: Install Nginx and Upload myWeb Page
+  hosts: all
+  become: yes
+
+
+  roles:
+   - deploy_1
+   - deploy_2
